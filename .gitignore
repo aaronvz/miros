@@ -1,0 +1,63 @@
+# --- .NET / Visual Studio ---
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.svclog
+*.pidb
+*.psess
+*.vsp
+*.vspx
+
+# Configuraciones de IDE
+.vscode/
+.idea/
+*.iml
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+*.nuget.props
+*.nuget.targets
+
+# Publicación / artefactos
+publish/
+artifacts/
+*.Publish.xml
+
+# Logs / temporales
+[Ll]og/
+[Ll]ogs/
+*.log
+*.tlog
+*.cache/
+
+# Test/coverage
+TestResult*/
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Secretos / variables de entorno
+appsettings.Development.json
+appsettings.Local.json
+*.secrets.json
+secrets.json
+.env
+
+# Si tienes Web con assets compilados
+wwwroot/dist/
+wwwroot/build/
+
+# Si usas SPA dentro del repo (ClientApp)
+ClientApp/node_modules/
+ClientApp/dist/
+ClientApp/build/
+ClientApp/.angular/

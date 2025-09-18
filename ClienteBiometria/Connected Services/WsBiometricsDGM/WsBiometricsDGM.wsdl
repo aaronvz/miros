@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="HelloWorld">
+        <s:complexType />
+      </s:element>
+      <s:element name="HelloWorldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AccessLicenseServer">
+        <s:complexType />
+      </s:element>
+      <s:element name="AccessLicenseServerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AccessLicenseServerResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AccessLicenses">
+        <s:complexType />
+      </s:element>
+      <s:element name="AccessLicensesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AccessLicensesResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CompararDosHuellasStrBase64IMG_WSQ">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strBase64Dedo1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strBase64Dedo2" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CompararDosHuellasStrBase64IMG_WSQResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CompararDosHuellasStrBase64IMG_WSQResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CompararDosRostrosStrBase64IMG">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strBase64IMG1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strBase64IMG2" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CompararDosRostrosStrBase64IMGResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CompararDosRostrosStrBase64IMGResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="DataSet" nillable="true">
+        <s:complexType>
+          <s:sequence>
+            <s:element ref="s:schema" />
+            <s:any />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloWorldSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloWorld" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
+  </wsdl:message>
+  <wsdl:message name="AccessLicenseServerSoapIn">
+    <wsdl:part name="parameters" element="tns:AccessLicenseServer" />
+  </wsdl:message>
+  <wsdl:message name="AccessLicenseServerSoapOut">
+    <wsdl:part name="parameters" element="tns:AccessLicenseServerResponse" />
+  </wsdl:message>
+  <wsdl:message name="AccessLicensesSoapIn">
+    <wsdl:part name="parameters" element="tns:AccessLicenses" />
+  </wsdl:message>
+  <wsdl:message name="AccessLicensesSoapOut">
+    <wsdl:part name="parameters" element="tns:AccessLicensesResponse" />
+  </wsdl:message>
+  <wsdl:message name="CompararDosHuellasStrBase64IMG_WSQSoapIn">
+    <wsdl:part name="parameters" element="tns:CompararDosHuellasStrBase64IMG_WSQ" />
+  </wsdl:message>
+  <wsdl:message name="CompararDosHuellasStrBase64IMG_WSQSoapOut">
+    <wsdl:part name="parameters" element="tns:CompararDosHuellasStrBase64IMG_WSQResponse" />
+  </wsdl:message>
+  <wsdl:message name="CompararDosRostrosStrBase64IMGSoapIn">
+    <wsdl:part name="parameters" element="tns:CompararDosRostrosStrBase64IMG" />
+  </wsdl:message>
+  <wsdl:message name="CompararDosRostrosStrBase64IMGSoapOut">
+    <wsdl:part name="parameters" element="tns:CompararDosRostrosStrBase64IMGResponse" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldHttpGetIn" />
+  <wsdl:message name="HelloWorldHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="AccessLicenseServerHttpGetIn" />
+  <wsdl:message name="AccessLicenseServerHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="AccessLicensesHttpGetIn" />
+  <wsdl:message name="AccessLicensesHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="CompararDosHuellasStrBase64IMG_WSQHttpGetIn">
+    <wsdl:part name="strBase64Dedo1" type="s:string" />
+    <wsdl:part name="strBase64Dedo2" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CompararDosHuellasStrBase64IMG_WSQHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="CompararDosRostrosStrBase64IMGHttpGetIn">
+    <wsdl:part name="strBase64IMG1" type="s:string" />
+    <wsdl:part name="strBase64IMG2" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CompararDosRostrosStrBase64IMGHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldHttpPostIn" />
+  <wsdl:message name="HelloWorldHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="AccessLicenseServerHttpPostIn" />
+  <wsdl:message name="AccessLicenseServerHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="AccessLicensesHttpPostIn" />
+  <wsdl:message name="AccessLicensesHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="CompararDosHuellasStrBase64IMG_WSQHttpPostIn">
+    <wsdl:part name="strBase64Dedo1" type="s:string" />
+    <wsdl:part name="strBase64Dedo2" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CompararDosHuellasStrBase64IMG_WSQHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="CompararDosRostrosStrBase64IMGHttpPostIn">
+    <wsdl:part name="strBase64IMG1" type="s:string" />
+    <wsdl:part name="strBase64IMG2" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CompararDosRostrosStrBase64IMGHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:portType name="WsBiometricsDGMSoap">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldSoapIn" />
+      <wsdl:output message="tns:HelloWorldSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AccessLicenseServer">
+      <wsdl:input message="tns:AccessLicenseServerSoapIn" />
+      <wsdl:output message="tns:AccessLicenseServerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AccessLicenses">
+      <wsdl:input message="tns:AccessLicensesSoapIn" />
+      <wsdl:output message="tns:AccessLicensesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CompararDosHuellasStrBase64IMG_WSQ">
+      <wsdl:input message="tns:CompararDosHuellasStrBase64IMG_WSQSoapIn" />
+      <wsdl:output message="tns:CompararDosHuellasStrBase64IMG_WSQSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CompararDosRostrosStrBase64IMG">
+      <wsdl:input message="tns:CompararDosRostrosStrBase64IMGSoapIn" />
+      <wsdl:output message="tns:CompararDosRostrosStrBase64IMGSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WsBiometricsDGMHttpGet">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldHttpGetIn" />
+      <wsdl:output message="tns:HelloWorldHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AccessLicenseServer">
+      <wsdl:input message="tns:AccessLicenseServerHttpGetIn" />
+      <wsdl:output message="tns:AccessLicenseServerHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AccessLicenses">
+      <wsdl:input message="tns:AccessLicensesHttpGetIn" />
+      <wsdl:output message="tns:AccessLicensesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CompararDosHuellasStrBase64IMG_WSQ">
+      <wsdl:input message="tns:CompararDosHuellasStrBase64IMG_WSQHttpGetIn" />
+      <wsdl:output message="tns:CompararDosHuellasStrBase64IMG_WSQHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CompararDosRostrosStrBase64IMG">
+      <wsdl:input message="tns:CompararDosRostrosStrBase64IMGHttpGetIn" />
+      <wsdl:output message="tns:CompararDosRostrosStrBase64IMGHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WsBiometricsDGMHttpPost">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldHttpPostIn" />
+      <wsdl:output message="tns:HelloWorldHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AccessLicenseServer">
+      <wsdl:input message="tns:AccessLicenseServerHttpPostIn" />
+      <wsdl:output message="tns:AccessLicenseServerHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AccessLicenses">
+      <wsdl:input message="tns:AccessLicensesHttpPostIn" />
+      <wsdl:output message="tns:AccessLicensesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CompararDosHuellasStrBase64IMG_WSQ">
+      <wsdl:input message="tns:CompararDosHuellasStrBase64IMG_WSQHttpPostIn" />
+      <wsdl:output message="tns:CompararDosHuellasStrBase64IMG_WSQHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CompararDosRostrosStrBase64IMG">
+      <wsdl:input message="tns:CompararDosRostrosStrBase64IMGHttpPostIn" />
+      <wsdl:output message="tns:CompararDosRostrosStrBase64IMGHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WsBiometricsDGMSoap" type="tns:WsBiometricsDGMSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AccessLicenseServer">
+      <soap:operation soapAction="http://tempuri.org/AccessLicenseServer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AccessLicenses">
+      <soap:operation soapAction="http://tempuri.org/AccessLicenses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompararDosHuellasStrBase64IMG_WSQ">
+      <soap:operation soapAction="http://tempuri.org/CompararDosHuellasStrBase64IMG_WSQ" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompararDosRostrosStrBase64IMG">
+      <soap:operation soapAction="http://tempuri.org/CompararDosRostrosStrBase64IMG" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WsBiometricsDGMSoap12" type="tns:WsBiometricsDGMSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AccessLicenseServer">
+      <soap12:operation soapAction="http://tempuri.org/AccessLicenseServer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AccessLicenses">
+      <soap12:operation soapAction="http://tempuri.org/AccessLicenses" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompararDosHuellasStrBase64IMG_WSQ">
+      <soap12:operation soapAction="http://tempuri.org/CompararDosHuellasStrBase64IMG_WSQ" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompararDosRostrosStrBase64IMG">
+      <soap12:operation soapAction="http://tempuri.org/CompararDosRostrosStrBase64IMG" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WsBiometricsDGMHttpGet" type="tns:WsBiometricsDGMHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="HelloWorld">
+      <http:operation location="/HelloWorld" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AccessLicenseServer">
+      <http:operation location="/AccessLicenseServer" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AccessLicenses">
+      <http:operation location="/AccessLicenses" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompararDosHuellasStrBase64IMG_WSQ">
+      <http:operation location="/CompararDosHuellasStrBase64IMG_WSQ" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompararDosRostrosStrBase64IMG">
+      <http:operation location="/CompararDosRostrosStrBase64IMG" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WsBiometricsDGMHttpPost" type="tns:WsBiometricsDGMHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="HelloWorld">
+      <http:operation location="/HelloWorld" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AccessLicenseServer">
+      <http:operation location="/AccessLicenseServer" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AccessLicenses">
+      <http:operation location="/AccessLicenses" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompararDosHuellasStrBase64IMG_WSQ">
+      <http:operation location="/CompararDosHuellasStrBase64IMG_WSQ" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompararDosRostrosStrBase64IMG">
+      <http:operation location="/CompararDosRostrosStrBase64IMG" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WsBiometricsDGM">
+    <wsdl:port name="WsBiometricsDGMSoap" binding="tns:WsBiometricsDGMSoap">
+      <soap:address location="http://10.200.0.52:89/WsBiometricsDGM.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WsBiometricsDGMSoap12" binding="tns:WsBiometricsDGMSoap12">
+      <soap12:address location="http://10.200.0.52:89/WsBiometricsDGM.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WsBiometricsDGMHttpGet" binding="tns:WsBiometricsDGMHttpGet">
+      <http:address location="http://10.200.0.52:89/WsBiometricsDGM.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WsBiometricsDGMHttpPost" binding="tns:WsBiometricsDGMHttpPost">
+      <http:address location="http://10.200.0.52:89/WsBiometricsDGM.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

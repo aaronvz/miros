@@ -1,0 +1,291 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ENROLLMENT_V3.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="scan" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SEDE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">GUA</Value>
+    </Setting>
+    <Setting Name="DEVICE_MODE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SEDE</Value>
+    </Setting>
+    <Setting Name="INTENTOS_ICAO" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="DRIVE_LETTER" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FTP_URL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ftp://10.200.0.27/</Value>
+    </Setting>
+    <Setting Name="USB_DEVICE" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="PROBATORIOS_GUA" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="PROBATORIOS_GUA_3_EDAD" Type="System.String" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="PROBATORIOS_EXTRANJERO" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="SUFIJO_ENCRIPTACION" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MATCHING_MODE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">LOCAL</Value>
+    </Setting>
+    <Setting Name="ARTICULO_98" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="SERVIDOR_NEURO" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/local</Value>
+    </Setting>
+    <Setting Name="VALIDAR_HIT" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="IP_SERVICIOS_WEB" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://10.200.1.8</Value>
+    </Setting>
+    <Setting Name="FILTRAR_ESCANER_HUELLAS" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="VALIDAR_PAGO" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ConsultarAsignacionSeEqMe" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="VALIDAR_SEQUIPO_SUSUARIO" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="CONSULTAR_CITA" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="CONFIRMA_CIUDADANO" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ESCANER_HUELLAS_LOGIN" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ESCANER_HUELLAS_PASAPORTE" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FOTO_DPI_FOTO_DOC" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="XML_PRUEBA" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="CITA_BY_ID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://10.200.1.8/citas/datos_personales</Value>
+    </Setting>
+    <Setting Name="CITA_BY_PAGO" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://10.200.0.55:8080/citas/datos_personales_boleta</Value>
+    </Setting>
+    <Setting Name="VALIDAR_SEDE_ENTREGA" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="VALIDAR_FECHA_CITA" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="FOTO_PERSONA" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://10.200.1.8/mostrarFotoPersona</Value>
+    </Setting>
+    <Setting Name="CITA_ID" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="INSERTAR_ENTREGA_PASAPORTE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://10.200.1.8:8080/entrega_pasaporte</Value>
+    </Setting>
+    <Setting Name="ENVIAR_FTP" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SERIAL_USB" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="BIOS" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PUERTO_NEURO" Type="System.String" Scope="User">
+      <Value Profile="(Default)">5000</Value>
+    </Setting>
+    <Setting Name="COMPONENTES_NEURO" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Biometrics.FaceMatching,Biometrics.FingerMatching,Biometrics.FingerExtraction,Devices.FingerScanners,Images.WSQ,Biometrics.FingerSegmentation,Biometrics.FingerQualityAssessmentBase,Biometrics.FaceExtraction,Biometrics.FaceDetection,Devices.Cameras,Biometrics.FaceSegmentsDetection</Value>
+    </Setting>
+    <Setting Name="ESCANEAR_UV" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="CONSULTAR_CASO_PASAPORTE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://10.200.1.8/consultarCasoPasaportexLibreta</Value>
+    </Setting>
+    <Setting Name="TIPO_CONEXION_ENTREGA" Type="System.String" Scope="User">
+      <Value Profile="(Default)">TEMP</Value>
+    </Setting>
+    <Setting Name="SEGMENTAR_ROSTRO" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="FILTRAR_CAMARA" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="FILTRO_CAMARA" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Integrated Webcam</Value>
+    </Setting>
+    <Setting Name="TIPO_CONEXION_CONSULTA" Type="System.String" Scope="User">
+      <Value Profile="(Default)">LOCAL</Value>
+    </Setting>
+    <Setting Name="NOMBRE_INSTITUCION" Type="System.String" Scope="User">
+      <Value Profile="(Default)">INSTITUTO GUATEMALTECO DE MIGRACION</Value>
+    </Setting>
+    <Setting Name="MENSAJE_ENTREGA" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Tu pasaporte entregado exitosamente. </Value>
+    </Setting>
+    <Setting Name="URL_SEND_TEXT_MESSAGE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://10.200.1.8/sms/messages_send</Value>
+    </Setting>
+    <Setting Name="ENVIAR_MSG" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="VALIDAR_ESTADO_POSTIMPRESION" Type="System.String" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="VALIDAR_USUARIO_GUARDAR" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="CONSULTAR_PASAPORTE_GTM" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ELIMINAR_TEMPORALES" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="IMAGEN_UV_VISIBLE" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="REGEX_NUMERO_DOCUMENTO" Type="System.String" Scope="User">
+      <Value Profile="(Default)">^[\w]+$</Value>
+    </Setting>
+    <Setting Name="ANCHO_PAPEL_PPI" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">280</Value>
+    </Setting>
+    <Setting Name="ALTO_FUENTE" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">12</Value>
+    </Setting>
+    <Setting Name="API_CONTROL_ACCESOS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://10.200.0.51:8082/api/movimiento</Value>
+    </Setting>
+    <Setting Name="ESCANER_PASAPORTES" Type="System.String" Scope="User">
+      <Value Profile="(Default)">PentaScanner4x</Value>
+    </Setting>
+    <Setting Name="ENROLAR_ROSTRO" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ENROLAR_HUELLAS" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="TIPO_MOVIMIENTO" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SALIDOS</Value>
+    </Setting>
+    <Setting Name="IMPRIMIR_TICKET" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="GENERAR_ARCHIVO_JSON" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="CONSUMIR_API_INS_MOV" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="SEDE_ID" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="API_INSERTAR_MOVIMIENTO" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://172.16.80.8:5000/miros/flujo/saveFlujo</Value>
+    </Setting>
+    <Setting Name="API_INSERTAR_BIOMETRIA_USUARIO" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://172.16.80.8:5000/core/auth/registroBiometrico</Value>
+    </Setting>
+    <Setting Name="API_LOGIN_USUARIO" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://172.16.80.8:5000/core/auth/loginDesktop</Value>
+    </Setting>
+    <Setting Name="API_PASAPORTE_BIOGRAFIA" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://172.16.80.8:5000/miros/pasaportes/getBiografiaLibreta</Value>
+    </Setting>
+    <Setting Name="API_PASAPORTE_FOTO" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://172.16.80.8:5000/miros/pasaportes/getFotoLibreta</Value>
+    </Setting>
+    <Setting Name="API_PASAPORTE_HUELLAS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://172.16.80.8:5000/miros/pasaportes/getHuellasLibreta</Value>
+    </Setting>
+    <Setting Name="TIPO_CONSULTA_PASAPORTE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">WS</Value>
+    </Setting>
+    <Setting Name="CONTROLADOR_WEBCAM" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AFORGE</Value>
+    </Setting>
+    <Setting Name="API_SEDE_BY_ID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://172.16.80.8:5000/miros/delegacion/getDelegacionById</Value>
+    </Setting>
+    <Setting Name="API_EQUIPO_BY_BIOS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://172.16.80.8:5000/miros/delegacion/getEquipoByBios</Value>
+    </Setting>
+    <Setting Name="API_GET_VUELOS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://172.16.80.8:5000/miros/transportedetalle/getTransporteAereo</Value>
+    </Setting>
+    <Setting Name="API_DECLARACION_BY_LIBRETA" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://172.16.230.30/externalservices/api/declaracionregional/detailsFromLibretaAndBirthday</Value>
+    </Setting>
+    <Setting Name="DECLARACION_TKN" Type="System.String" Scope="User">
+      <Value Profile="(Default)">eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1JUk9TR1RfQ01BSUxBIiwidXNlcklEIjoxOSwidGlwb1VzZXIiOjEsImlhdCI6MTcyMTE1NzE4NX0.otfTKEi1ngSwRXBBYkwecSQ-KkNobupYLTox2LRDp9pB09VCFfRE5fzOs5dNOjTqfwfrvj4zvGKt29oAN3lRDA</Value>
+    </Setting>
+    <Setting Name="API_DECLARACION_BY_NUMERO" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://172.16.80.10/externalservices/api/declaracionregional/details</Value>
+    </Setting>
+    <Setting Name="ENROLAR_DOCUMENTO" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="API_GET_PAIS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/miros/pais/getPais</Value>
+    </Setting>
+    <Setting Name="CONSULTAR_DJRV" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="API_GET_TIPO_VISA" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://172.16.80.8:5000/miros/categoriadocumento/getCategoriaDocumentoById</Value>
+    </Setting>
+    <Setting Name="CONSULTAR_ALERTAS" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="API_ALERTAS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://172.16.80.8:5000/miros/alerta/getAllAlertas</Value>
+    </Setting>
+    <Setting Name="CONSULTAR_MOVIMIENTO_SIOM" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="API_MOVIMIENTO_SIOM" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://172.16.80.8:5000/miros/flujo/getMovimientoSIOM</Value>
+    </Setting>
+    <Setting Name="VERIFICAR_HUELLA_GTM" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MODO_DIAGNÓSTICO" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="CONSULTAS_RENAP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://consultas_sireci.igm.gob.gt</Value>
+    </Setting>
+    <Setting Name="ENTREVISTA_TRABAJO_EMPRESA" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="VERSION" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Versión: 2025-04-30-01</Value>
+    </Setting>
+    <Setting Name="Valor" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="API_REST_MIROS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://172.16.80.8:5000</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

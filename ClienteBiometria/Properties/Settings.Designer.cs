@@ -1165,5 +1165,41 @@ namespace ENROLLMENT_V3.Properties {
                 this["API_REST_MIROS"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("/core/auth/request-reset-footprint")]
+        public string API_REQUEST_RESET_TOKEN {
+            get {
+                return ((string)(this["API_REQUEST_RESET_TOKEN"]));
+            }
+            set {
+                this["API_REQUEST_RESET_TOKEN"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("/core/auth/reset-password")]
+        public string API_RESET_PASSWORD {
+            get {
+                return ((string)(this["API_RESET_PASSWORD"]));
+            }
+            set {
+                this["API_RESET_PASSWORD"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("/core/auth/validate-reset-token")]
+        public string API_VALIDATE_RESET_TOKEN {
+            get {
+                return ((string)(this["API_VALIDATE_RESET_TOKEN"]));
+            }
+            set {
+                this["API_VALIDATE_RESET_TOKEN"] = value;
+            }
+        }
     }
 }

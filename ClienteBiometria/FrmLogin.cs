@@ -55,7 +55,21 @@ namespace ENROLLMENT_V3
             
             lversion.Text = FUNCIONES.GetVersion();
             l_api.Text = funciones.devApiMiros();
-        }        
+            InitializeResetPasswordLink();
+        }
+
+        private void InitializeResetPasswordLink()
+        {
+            try
+            {
+                // Additional styling for the reset password link if needed
+                lnkResetPassword.VisitedLinkColor = System.Drawing.Color.White;
+            }
+            catch (Exception ex)
+            {
+                funciones.CajaMensaje("Error al inicializar enlace de restablecimiento: " + ex.Message);
+            }
+        }
         
         private Task<DataSet> SecuenciaArranque()
         {
@@ -341,6 +355,7 @@ namespace ENROLLMENT_V3
                 {
                     try
                     {
+                        funciones.CajaMensaje($"DEBUG Usuario:\nSEDE_ID del usuario: {loginData.SEDE_ID}\nUsuario: {loginData.USUARIO}");
                         DataSet dsSedeUsuario = GetSedeById(loginData.SEDE_ID);
                         if (bool.Parse(dsSedeUsuario.Tables[0].Rows[0]["RESULTADO"].ToString()) == false)
                             throw new Exception(dsSedeUsuario.Tables[0].Rows[0]["MSG_ERROR"].ToString());
@@ -360,7 +375,7 @@ namespace ENROLLMENT_V3
                         SedeData sedeDataUsuario = (SedeData)dsSedeUsuario.Tables[0].Rows[0]["DATOS"];
                         equipoData = (EquipoData)dsEquipo.Tables[0].Rows[0]["DATOS"];
 
-                        
+                        funciones.CajaMensaje($"DEBUG Equipo:\nSEDE_ID del equipo: {equipoData.sede_id}\nEquipo: {equipoData.nombre}");
                         DataSet dsSedeEquipo = GetSedeById(equipoData.sede_id);
                         if (bool.Parse(dsSedeEquipo.Tables[0].Rows[0]["RESULTADO"].ToString()) == false)
                             throw new Exception(dsSedeEquipo.Tables[0].Rows[0]["MSG_ERROR"].ToString());
@@ -519,8 +534,12 @@ namespace ENROLLMENT_V3
             {
                 SedeRequest sedeRequest = new SedeRequest();
                 sedeRequest.id = id;
-               
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(@"" + Settings.Default.API_REST_MIROS + Settings.Default.API_SEDE_BY_ID + "?id=" + sedeRequest.id);
+
+                // DEBUG: Mostrar datos del request
+                string url = Settings.Default.API_REST_MIROS + Settings.Default.API_SEDE_BY_ID + "?id=" + sedeRequest.id;
+                funciones.CajaMensaje($"DEBUG GetSedeById:\nSEDE_ID: {id}\nURL: {url}\nJWT: {loginData?.JWT_TOKEN?.Substring(0, 20)}...");
+
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 request.Headers.Add("Authorization", $"Bearer {loginData.JWT_TOKEN}");
 
                 using (WebResponse response = request.GetResponse())
@@ -858,6 +877,88 @@ namespace ENROLLMENT_V3
 
             }
             catch (Exception ex) { MessageBox.Show("btnLimpiar_MouseClick(). " + ex.Message); }
+        }
+
+        private void lnkResetPassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                if (biometricClientFinger == null)
+                {
+                    funciones.CajaMensaje("El sistema biométrico no está inicializado. Por favor, espere a que termine la secuencia de arranque.");
+                    return;
+                }
+
+                // Ocultar temporalmente el formulario de login
+                this.Hide();
+
+                // Crear y mostrar el formulario de restablecimiento de contraseña
+                FrmResetPasswordHuella frmReset = new FrmResetPasswordHuella(biometricClientFinger);
+                DialogResult result = frmReset.ShowDialog();
+
+                // Mostrar nuevamente el formulario de login
+                this.Show();
+
+                // Si el restablecimiento fue exitoso, limpiar los campos
+                if (result == DialogResult.OK)
+                {
+                    txtUsuario.Text = string.Empty;
+                    txtContrasenia.Text = string.Empty;
+
+                    // Limpiar las huellas mostradas
+                    funciones.MostrarHuellaDesdeBytes(null, nFVDedoA);
+                    funciones.MostrarHuellaDesdeBytes(null, nFVDedoB);
+
+                    // Reinicializar el escáner forzando el evento
+                    if (cmbEscaners.Items.Count > 0)
+                    {
+                        int currentIndex = cmbEscaners.SelectedIndex;
+                        cmbEscaners.SelectedIndexChanged -= CmbEscaners_SelectedIndexChanged;
+                        cmbEscaners.SelectedIndex = -1;
+                        cmbEscaners.SelectedIndexChanged += CmbEscaners_SelectedIndexChanged;
+                        cmbEscaners.SelectedIndex = currentIndex >= 0 ? currentIndex : 0;
+                    }
+
+                    funciones.CajaMensaje("Contraseña restablecida exitosamente. Puede iniciar sesión con su nueva contraseña.");
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Show(); // Asegurar que el formulario se muestre en caso de error
+                funciones.CajaMensaje("Error al abrir el formulario de restablecimiento: " + ex.Message);
+            }
+        }
+
+        private void lnkAutenticarSinHuella_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                this.Hide();
+                FrmLogin2FA frmLogin2FA = new FrmLogin2FA();
+                DialogResult result = frmLogin2FA.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    // Obtener datos del formulario 2FA
+                    loginData = frmLogin2FA.loginData;
+                    equipoData = frmLogin2FA.equipoData;
+                    sedeDataEquipo = frmLogin2FA.sedeDataEquipo;
+
+                    // Abrir FrmEnrolamiento
+                    this.Hide();
+                    FrmEnrolamiento frmEnrolamiento = new FrmEnrolamiento(loginData, equipoData, sedeDataEquipo, biometricClientFinger, biometricClientFace);
+                    frmEnrolamiento.Show();
+                }
+                else
+                {
+                    this.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Show();
+                funciones.CajaMensaje("Error: " + ex.Message);
+            }
         }
     }
 }

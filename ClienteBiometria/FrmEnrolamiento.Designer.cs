@@ -101,6 +101,8 @@
             this.btnLeerDPIPadre = new System.Windows.Forms.Button();
             this.btnLeerDPIMadre = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
+            this.btnCambiarPassword = new System.Windows.Forms.Button();
+            this.btnRestablecerHuellas = new System.Windows.Forms.Button();
             this.pbxWarningColor = new System.Windows.Forms.PictureBox();
             this.pbxCheckColor = new System.Windows.Forms.PictureBox();
             this.pbxLoadColor = new System.Windows.Forms.PictureBox();
@@ -418,6 +420,8 @@
             this.panel_ver_izq.Controls.Add(this.pbxAlertas);
             this.panel_ver_izq.Controls.Add(this.lblGrupo);
             this.panel_ver_izq.Controls.Add(this.btnAgregar);
+            this.panel_ver_izq.Controls.Add(this.btnCambiarPassword);
+            this.panel_ver_izq.Controls.Add(this.btnRestablecerHuellas);
             this.panel_ver_izq.Controls.Add(this.label5);
             this.panel_ver_izq.Controls.Add(this.lblEncriptar);
             this.panel_ver_izq.Controls.Add(this.nFVDedoB);
@@ -610,7 +614,43 @@
             this.btnAgregar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnAgregar.UseVisualStyleBackColor = false;
             this.btnAgregar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnAgregar_MouseClick);
-            // 
+            //
+            // btnCambiarPassword
+            //
+            this.btnCambiarPassword.AutoEllipsis = true;
+            this.btnCambiarPassword.BackColor = System.Drawing.Color.MidnightBlue;
+            this.btnCambiarPassword.FlatAppearance.BorderSize = 0;
+            this.btnCambiarPassword.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnCambiarPassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCambiarPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCambiarPassword.ForeColor = System.Drawing.Color.White;
+            this.btnCambiarPassword.Location = new System.Drawing.Point(34, 590);
+            this.btnCambiarPassword.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCambiarPassword.Name = "btnCambiarPassword";
+            this.btnCambiarPassword.Size = new System.Drawing.Size(200, 35);
+            this.btnCambiarPassword.TabIndex = 136;
+            this.btnCambiarPassword.Text = "Cambiar Contraseña";
+            this.btnCambiarPassword.UseVisualStyleBackColor = false;
+            this.btnCambiarPassword.Click += new System.EventHandler(this.btnCambiarPassword_Click);
+            //
+            // btnRestablecerHuellas
+            //
+            this.btnRestablecerHuellas.AutoEllipsis = true;
+            this.btnRestablecerHuellas.BackColor = System.Drawing.Color.MidnightBlue;
+            this.btnRestablecerHuellas.FlatAppearance.BorderSize = 0;
+            this.btnRestablecerHuellas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnRestablecerHuellas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRestablecerHuellas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRestablecerHuellas.ForeColor = System.Drawing.Color.White;
+            this.btnRestablecerHuellas.Location = new System.Drawing.Point(34, 630);
+            this.btnRestablecerHuellas.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRestablecerHuellas.Name = "btnRestablecerHuellas";
+            this.btnRestablecerHuellas.Size = new System.Drawing.Size(200, 35);
+            this.btnRestablecerHuellas.TabIndex = 137;
+            this.btnRestablecerHuellas.Text = "Restablecer Huellas";
+            this.btnRestablecerHuellas.UseVisualStyleBackColor = false;
+            this.btnRestablecerHuellas.Click += new System.EventHandler(this.btnRestablecerHuellas_Click);
+            //
             // label5
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -4199,6 +4239,8 @@
         private System.Windows.Forms.Panel panel_inferior;
         private System.Windows.Forms.PictureBox pic_logo_dgm;
         private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.Button btnCambiarPassword;
+        private System.Windows.Forms.Button btnRestablecerHuellas;
         private System.Windows.Forms.Button btnImprimir;
         private System.Windows.Forms.Button btnLeerDPIPadre;
         private System.Windows.Forms.Button btnLeerDPIMadre;

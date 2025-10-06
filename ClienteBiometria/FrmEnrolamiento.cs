@@ -2062,28 +2062,55 @@ namespace ENROLLMENT_V3
 
         private void enrollment_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _session.DeviceStateChanged -= Session_DeviceStateChanged;
-            _session.ProcessStateChanged -= Session_ProcessStateChanged;
-            _session.ImageAvailable -= Session_ImageAvailable;
-            _session.FieldAvailable -= Session_FieldAvailable;
-            _session.ValidationResultAvailable -= Session_ValidationResultAvailable;
-            _session.ReferenceDocumentAvailable -= Session_ReferenceDocumentAvailable;
-            _session.DocumentFinished -= Session_DocumentFinished;
-
-            //_formVirtualDevice.Hide();
-            //_formVirtualDevice.Dispose();
-            //_formVirtualDevice = null;
-            _session.Dispose();
-
-            if (salir != DialogResult.Yes)
+            try
             {
-                e.Cancel = true;
+                // Validar _session antes de desuscribir eventos
+                if (_session != null)
+                {
+                    _session.DeviceStateChanged -= Session_DeviceStateChanged;
+                    _session.ProcessStateChanged -= Session_ProcessStateChanged;
+                    _session.ImageAvailable -= Session_ImageAvailable;
+                    _session.FieldAvailable -= Session_FieldAvailable;
+                    _session.ValidationResultAvailable -= Session_ValidationResultAvailable;
+                    _session.ReferenceDocumentAvailable -= Session_ReferenceDocumentAvailable;
+                    _session.DocumentFinished -= Session_DocumentFinished;
+                    _session.Dispose();
+                }
 
-                //_regulaReader.Disconnect();
-                //UnsubscribeEvents();
-                System.Windows.Forms.Application.Exit();
+                // Validar otros objetos antes de liberar
+                if (_biometricFingerClient != null)
+                {
+                    _biometricFingerClient.Cancel();
+                }
+
+                if (_biometricFaceClient != null)
+                {
+                    _biometricFaceClient.Cancel();
+                }
+
+                // Liberar recursos del escáner Regula si existe
+                if (_regulaReader != null)
+                {
+                    UnsubscribeEvents();
+                }
+
+                // Detener cámara si está activa
+                if (videoCaptureDevice != null && videoCaptureDevice.IsRunning)
+                {
+                    videoCaptureDevice.Stop();
+                }
+
+                if (salir != DialogResult.Yes)
+                {
+                    e.Cancel = true;
+                    System.Windows.Forms.Application.Exit();
+                }
             }
-         
+            catch (Exception ex)
+            {
+                // No mostrar error al cerrar, solo log si existe
+                System.Diagnostics.Debug.WriteLine("Error al cerrar formulario: " + ex.Message);
+            }
         }
         String nom_escaner;
         int limiteEscaneos = 32;
@@ -3141,7 +3168,100 @@ namespace ENROLLMENT_V3
                 funciones.CajaMensaje(ex.Message);
             }
         }
-        
+
+        private void btnCambiarPassword_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FrmCambiarPassword frmCambiar = new FrmCambiarPassword(loginData);
+                DialogResult result = frmCambiar.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    // Cerrar sesión y volver al login
+                    funciones.CajaMensaje("Contraseña cambiada exitosamente. Debe iniciar sesión nuevamente.");
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                funciones.CajaMensaje("Error: " + ex.Message);
+            }
+        }
+
+        private async void btnRestablecerHuellas_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult confirmacion = MessageBox.Show(
+                    "¿Está seguro que desea restablecer sus huellas dactilares?\n\nDeberá capturar sus huellas nuevamente al iniciar sesión.",
+                    "Confirmar Restablecimiento",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (confirmacion != DialogResult.Yes)
+                    return;
+
+                btnRestablecerHuellas.Enabled = false;
+
+                DataSet dsResult = await RestablecerBiometria();
+
+                if (!bool.Parse(dsResult.Tables[0].Rows[0]["RESULTADO"].ToString()))
+                    throw new Exception(dsResult.Tables[0].Rows[0]["MSG_ERROR"].ToString());
+
+                funciones.CajaMensaje("Huellas restablecidas exitosamente. Debe iniciar sesión nuevamente para capturar sus nuevas huellas.");
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                funciones.CajaMensaje("Error: " + ex.Message);
+                btnRestablecerHuellas.Enabled = true;
+            }
+        }
+
+        private async System.Threading.Tasks.Task<DataSet> RestablecerBiometria()
+        {
+            const string DEVICE_API_KEY = "Z3pVbU9oT1pVbW9Yb2pRZlZrWk5aV1E9";
+            DataSet dsResultado = ArmarDsResultado();
+
+            try
+            {
+                var request = new { username = loginData.USUARIO, value = 1 };
+                string postString = JsonConvert.SerializeObject(request);
+                byte[] data = UTF8Encoding.UTF8.GetBytes(postString);
+
+                HttpWebRequest webRequest = WebRequest.Create(Settings.Default.API_REST_MIROS + "/core/auth/set-reiniciar-biometria-device") as HttpWebRequest;
+                webRequest.Timeout = 10 * 1000;
+                webRequest.Method = "POST";
+                webRequest.ContentType = "application/json";
+                webRequest.Accept = "application/json";
+                webRequest.Headers.Add("x-device-api-key", DEVICE_API_KEY);
+                webRequest.ContentLength = data.Length;
+
+                Stream postStream = webRequest.GetRequestStream();
+                postStream.Write(data, 0, data.Length);
+
+                HttpWebResponse response = webRequest.GetResponse() as HttpWebResponse;
+                StreamReader reader = new StreamReader(response.GetResponseStream());
+                string body = reader.ReadToEnd();
+
+                dynamic jsonResponse = JsonConvert.DeserializeObject(body);
+
+                if (jsonResponse.codigo != 200)
+                    throw new Exception("Error: " + jsonResponse.mensaje);
+
+                dsResultado.Tables[0].Rows[0]["RESULTADO"] = true;
+            }
+            catch (Exception ex)
+            {
+                dsResultado.Tables[0].Rows[0]["RESULTADO"] = false;
+                dsResultado.Tables[0].Rows[0]["MSG_ERROR"] = "RestablecerBiometria(): " + ex.Message;
+            }
+
+            return dsResultado;
+        }
+
 
         internal static string foto, no_caso, tipo_pasaporte, nombres, apellidos, apellido_casada, direccion, tel_casa, tel_trabajo, tel_celular, correo, pais, sexo, estado_civil, nacionalidad, fecha_nacimiento,
             depto_nacimiento, muni_nacimiento, pais_nacimiento, identificacion, depto_emision, municipio_emision, color_ojos, color_tez, color_cabello, estatura, padre, madre, sede_entrega,
@@ -6189,6 +6309,7 @@ namespace ENROLLMENT_V3
 
                             xi = (LVBw - w) / 2;
                         }
+                            
                         e.Graphics.DrawImage(Evf_Bmp, xi, 0, w, h);
                     }
                 }

@@ -37,6 +37,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lnkResetPassword = new System.Windows.Forms.LinkLabel();
+            this.lnkAutenticarSinHuella = new System.Windows.Forms.LinkLabel();
             this.l_api = new System.Windows.Forms.Label();
             this.lversion = new System.Windows.Forms.Label();
             this.btnSalir = new System.Windows.Forms.Button();
@@ -169,6 +171,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.SteelBlue;
+            this.panel1.Controls.Add(this.lnkResetPassword);
+            this.panel1.Controls.Add(this.lnkAutenticarSinHuella);
             this.panel1.Controls.Add(this.l_api);
             this.panel1.Controls.Add(this.lversion);
             this.panel1.Controls.Add(this.btnSalir);
@@ -190,7 +194,35 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(827, 396);
             this.panel1.TabIndex = 31;
-            // 
+            //
+            // lnkResetPassword
+            //
+            this.lnkResetPassword.AutoSize = true;
+            this.lnkResetPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lnkResetPassword.LinkColor = System.Drawing.Color.White;
+            this.lnkResetPassword.ActiveLinkColor = System.Drawing.Color.LightBlue;
+            this.lnkResetPassword.Location = new System.Drawing.Point(31, 185);
+            this.lnkResetPassword.Name = "lnkResetPassword";
+            this.lnkResetPassword.Size = new System.Drawing.Size(129, 15);
+            this.lnkResetPassword.TabIndex = 38;
+            this.lnkResetPassword.TabStop = true;
+            this.lnkResetPassword.Text = "¿Olvidó su contraseña?";
+            this.lnkResetPassword.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkResetPassword_LinkClicked);
+            //
+            // lnkAutenticarSinHuella
+            //
+            this.lnkAutenticarSinHuella.AutoSize = true;
+            this.lnkAutenticarSinHuella.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lnkAutenticarSinHuella.LinkColor = System.Drawing.Color.White;
+            this.lnkAutenticarSinHuella.ActiveLinkColor = System.Drawing.Color.LightBlue;
+            this.lnkAutenticarSinHuella.Location = new System.Drawing.Point(31, 210);
+            this.lnkAutenticarSinHuella.Name = "lnkAutenticarSinHuella";
+            this.lnkAutenticarSinHuella.Size = new System.Drawing.Size(135, 15);
+            this.lnkAutenticarSinHuella.TabIndex = 39;
+            this.lnkAutenticarSinHuella.TabStop = true;
+            this.lnkAutenticarSinHuella.Text = "Autenticarse sin huella";
+            this.lnkAutenticarSinHuella.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAutenticarSinHuella_LinkClicked);
+            //
             // l_api
             // 
             this.l_api.AutoSize = true;
@@ -502,5 +534,7 @@
         private System.Windows.Forms.Button btnVerificar;
         private System.Windows.Forms.Label lversion;
         private System.Windows.Forms.Label l_api;
+        private System.Windows.Forms.LinkLabel lnkResetPassword;
+        private System.Windows.Forms.LinkLabel lnkAutenticarSinHuella;
     }
 }

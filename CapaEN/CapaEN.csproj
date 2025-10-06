@@ -81,6 +81,7 @@
     <Compile Include="JsonEntregaPasaporteEN.cs" />
     <Compile Include="PasaporteEntregaEN.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResetPasswordEntities.cs" />
     <Compile Include="UsuariosEN.cs" />
     <Compile Include="XmlDatosEN.cs" />
   </ItemGroup>

@@ -287,5 +287,14 @@
     <Setting Name="API_REST_MIROS" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://172.16.80.8:5000</Value>
     </Setting>
+    <Setting Name="API_REQUEST_RESET_TOKEN" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/core/auth/request-reset-footprint</Value>
+    </Setting>
+    <Setting Name="API_RESET_PASSWORD" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/core/auth/reset-password</Value>
+    </Setting>
+    <Setting Name="API_VALIDATE_RESET_TOKEN" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/core/auth/validate-reset-token</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

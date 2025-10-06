@@ -297,6 +297,24 @@
     <Compile Include="FrmLogin.Designer.cs">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmResetPasswordHuella.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmResetPasswordHuella.Designer.cs">
+      <DependentUpon>FrmResetPasswordHuella.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCambiarPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCambiarPassword.Designer.cs">
+      <DependentUpon>FrmCambiarPassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmLogin2FA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLogin2FA.Designer.cs">
+      <DependentUpon>FrmLogin2FA.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmLoader.cs">
       <SubType>Form</SubType>
     </Compile>

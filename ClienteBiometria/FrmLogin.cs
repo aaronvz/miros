@@ -1,4 +1,4 @@
-﻿using AForge.Video;
+using AForge.Video;
 using AForge.Video.DirectShow;
 using CapaEN;
 using ENROLLMENT_V3.Properties;
@@ -282,20 +282,51 @@ namespace ENROLLMENT_V3
                 }
                 
                 if (msgError.Equals(string.Empty) == false)
-                   throw new Exception(msgError);
+                   throw new Exception(msgError);                                             
 
                 DataSet dsUsuario = ConsultaInformacionxUsuario(txtUsuario.Text, txtContrasenia.Text);
-                
+
                 if (bool.Parse(dsUsuario.Tables[0].Rows[0]["RESULTADO"].ToString()) == false)
                     throw new Exception(dsUsuario.Tables[0].Rows[0]["MSG_ERROR"].ToString());
 
                 LoginResponse loginResponse = (LoginResponse)(dsUsuario.Tables[0].Rows[0]["DATOS"]);
+              
 
                 if (loginResponse.data.Length < 1)
-                    throw new Exception("La colección de información de usuarios es 0.");
+                {                    
+                    // Usuario no tiene huellas registradas - validar credenciales básicas
+                    DataSet dsBasicLogin = ValidateBasicCredentials(txtUsuario.Text, txtContrasenia.Text);
 
-                loginData = loginResponse.data[0];
-                
+                    if (bool.Parse(dsBasicLogin.Tables[0].Rows[0]["RESULTADO"].ToString()) == false)
+                        throw new Exception("Usuario o contraseña incorrectos");
+
+                    // Credenciales válidas - obtener datos del usuario para registro de huellas
+                    dynamic basicLoginResponse = dsBasicLogin.Tables[0].Rows[0]["DATOS"];
+
+                    if (basicLoginResponse.data == null || basicLoginResponse.data.Count == 0)
+                        throw new Exception("Usuario o contraseña incorrectos");
+
+                    // Crear loginData con los datos básicos del usuario
+                    loginData = new LoginData
+                    {
+                        ID_USUARIO = basicLoginResponse.data[0].iduser,
+                        USUARIO = basicLoginResponse.data[0].username,
+                        STATUS = 1,
+                        REINICIAR_BIOMETRIA = 1,
+                        SEDE_ID = basicLoginResponse.data[0].sede_id ?? 0,
+                        JWT_TOKEN = basicLoginResponse.data[0].token
+                    };
+
+                    // Abrir formulario de registro de huellas
+                    Usuarios frmUsuario = new Usuarios(loginData);
+                    this.Hide();
+                    frmUsuario.ShowDialog();
+                    this.Close();
+                    return;
+                }
+
+                loginData = loginResponse.data[0];                
+
                 Settings.Default.DRIVE_LETTER = Path.Combine(Application.StartupPath, "ENROL");
                 Settings.Default.SUFIJO_ENCRIPTACION = "M";
 
@@ -343,7 +374,7 @@ namespace ENROLLMENT_V3
                 //listDataWsUsuariosDGM[0].activo = "0";
                 //SI NO HAY BIOMETRÍA O ESTA MARCADA LA OPCION PARA CAMBIO DE CONTRASEÑA
                 if (loginData.REINICIAR_BIOMETRIA == 1)
-                {
+                {                    
                     //throw new Exception("Usuario sin biometría en el sistema, búsque un módulo de enrolamiento de pasaportes y enrole su biometría.");
                     Usuarios frmUsuario = new Usuarios(loginData);
                     this.Hide();
@@ -353,20 +384,35 @@ namespace ENROLLMENT_V3
                 }//USUARIO NO ESTÁ BLOQUEADO Y LA BIOMETRÍA ESTÁ ACTIVA
                 else// if (listDataWsUsuariosDGM[0].bloqueado.ToString().Equals("0") && listDataWsUsuariosDGM[0].activo.Equals("1") && (listDataWsUsuariosDGM[0].cambioclave.Equals("0")))
                 {
+                    // Mostrar pantalla de carga
+                    FrmCargando frmCargando = new FrmCargando();
+                    frmCargando.Show();
+                    Application.DoEvents();
+
                     try
-                    {
-                        funciones.CajaMensaje($"DEBUG Usuario:\nSEDE_ID del usuario: {loginData.SEDE_ID}\nUsuario: {loginData.USUARIO}");
+                    {                        
+                        frmCargando.ActualizarMensaje("Obteniendo información de sede del usuario...");
+                        frmCargando.ActualizarProgreso(20);
+                        Application.DoEvents();
+
                         DataSet dsSedeUsuario = GetSedeById(loginData.SEDE_ID);
                         if (bool.Parse(dsSedeUsuario.Tables[0].Rows[0]["RESULTADO"].ToString()) == false)
                             throw new Exception(dsSedeUsuario.Tables[0].Rows[0]["MSG_ERROR"].ToString());
 
+                        frmCargando.ActualizarMensaje("Obteniendo información del equipo...");
+                        frmCargando.ActualizarProgreso(40);
+                        Application.DoEvents();
+
                         DataSet dsBios = funciones.GetBios();
                         if (bool.Parse(dsBios.Tables[0].Rows[0]["RESULTADO"].ToString()) == false)
                             throw new Exception(dsBios.Tables[0].Rows[0]["MSG_ERROR"].ToString());
-                        
-                        string bios = dsBios.Tables[0].Rows[0]["DATOS"].ToString();
 
+                        string bios = dsBios.Tables[0].Rows[0]["DATOS"].ToString();
                         loginData.biosestacion = bios;
+
+                        frmCargando.ActualizarMensaje("Validando configuración del equipo...");
+                        frmCargando.ActualizarProgreso(60);
+                        Application.DoEvents();
 
                         DataSet dsEquipo = GetEquipoByBios(bios);
                         if (bool.Parse(dsEquipo.Tables[0].Rows[0]["RESULTADO"].ToString()) == false)
@@ -374,8 +420,12 @@ namespace ENROLLMENT_V3
 
                         SedeData sedeDataUsuario = (SedeData)dsSedeUsuario.Tables[0].Rows[0]["DATOS"];
                         equipoData = (EquipoData)dsEquipo.Tables[0].Rows[0]["DATOS"];
+                        
 
-                        funciones.CajaMensaje($"DEBUG Equipo:\nSEDE_ID del equipo: {equipoData.sede_id}\nEquipo: {equipoData.nombre}");
+                        frmCargando.ActualizarMensaje("Obteniendo información de sede del equipo...");
+                        frmCargando.ActualizarProgreso(80);
+                        Application.DoEvents();
+
                         DataSet dsSedeEquipo = GetSedeById(equipoData.sede_id);
                         if (bool.Parse(dsSedeEquipo.Tables[0].Rows[0]["RESULTADO"].ToString()) == false)
                             throw new Exception(dsSedeEquipo.Tables[0].Rows[0]["MSG_ERROR"].ToString());
@@ -433,10 +483,10 @@ namespace ENROLLMENT_V3
                                     throw new Exception("¡Las huellas no coinciden!. Puntuacion: " + DsCoincidenciaAB.Tables[0].Rows[0]["PUNTUACION"].ToString());
                                 }
 
-                                NuevaInstanciaEnrollment();
+                                NuevaInstanciaEnrollmentConCarga(frmCargando);
                             }
                             else
-                                NuevaInstanciaEnrollment();
+                                NuevaInstanciaEnrollmentConCarga(frmCargando);
                         }
                         else if(Properties.Settings.Default.MATCHING_MODE.Equals("LOCAL"))
                         {
@@ -487,18 +537,25 @@ namespace ENROLLMENT_V3
                                 throw new Exception(mensajeError);
                             }
 
-                            NuevaInstanciaEnrollment();                            
+                            NuevaInstanciaEnrollmentConCarga(frmCargando);                            
                         }
                     }
                     catch (Exception ex)
                     {
+                        // Cerrar pantalla de carga en caso de error
+                        if (frmCargando != null && !frmCargando.IsDisposed)
+                        {
+                            frmCargando.Close();
+                            frmCargando.Dispose();
+                        }
                         nFVDedoB.Finger = null;
-                        throw new Exception("Error al validar la identidad del usuario: " + ex.Message);                        
+                        throw new Exception("Error al validar la identidad del usuario: " + ex.Message);
                     }
                 }               
             }
             catch (Exception ex)
             {
+                MessageBox.Show($"DEBUG ERROR en btnVerificar_Click:\n{ex.Message}\n\nStackTrace:\n{ex.StackTrace}");
                 //MessageBox.Show("btnVerificar_Click(). " + ex.Message);
                 //MessageBox.Show(ex.Message, "Validación de credenciales", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
                 funciones.CajaMensaje(ex.Message);
@@ -513,19 +570,123 @@ namespace ENROLLMENT_V3
         {
             try
             {
-
                 FrmEnrolamiento er = new FrmEnrolamiento(loginData, equipoData, sedeDataEquipo, this.biometricClientFinger, this.biometricClientFace);
                 this.Hide();
                 er.ShowDialog();
-                this.Close();
+
+                // mostrar nuevamente FrmLogin en lugar de cerrarlo
+                this.Show();
+
+                // reinicializar formulario y dispositivos biométricos
+                ReinicializarFormulario();
             }
             catch(Exception ex)
             {
                 //MessageBox.Show(ex.Message);
                 funciones.CajaMensaje(ex.Message);
+                this.Show(); // mostrar incluso si hay error
                 //throw new Exception();
             }
         }
+
+        public void NuevaInstanciaEnrollmentConCarga(FrmCargando frmCargando)
+        {
+            try
+            {
+                if (frmCargando != null && !frmCargando.IsDisposed)
+                {
+                    frmCargando.ActualizarMensaje("Iniciando sistema...");
+                    frmCargando.ActualizarProgreso(100);
+                    Application.DoEvents();
+
+                    // Pequeña pausa para que se vea el 100%
+                    System.Threading.Thread.Sleep(500);
+
+                    frmCargando.Close();
+                    frmCargando.Dispose();
+                }
+
+                FrmEnrolamiento er = new FrmEnrolamiento(loginData, equipoData, sedeDataEquipo, this.biometricClientFinger, this.biometricClientFace);
+                this.Hide();
+                er.ShowDialog();
+
+                // mostrar nuevamente FrmLogin en lugar de cerrarlo
+                this.Show();
+
+                // reinicializar formulario y dispositivos biométricos
+                ReinicializarFormulario();
+            }
+            catch(Exception ex)
+            {
+                if (frmCargando != null && !frmCargando.IsDisposed)
+                {
+                    frmCargando.Close();
+                    frmCargando.Dispose();
+                }
+                funciones.CajaMensaje(ex.Message);
+                this.Show(); // Mostrar incluso si hay error
+            }
+        }
+
+        private void RecreateFingerClient()
+        {
+            try { biometricClientFinger?.Dispose(); } catch { /* ignore */ }
+
+            biometricClientFinger = new NBiometricClient();
+            biometricClientFinger.UseDeviceManager = true;
+
+            NDeviceManager dm = biometricClientFinger.DeviceManager;
+            dm.DeviceTypes = NDeviceType.FScanner;
+            dm.Initialize();                       // refrescar listado
+        }
+
+        private void RecreateFaceClient()
+        {
+            try { biometricClientFace?.Dispose(); } catch { }
+
+            biometricClientFace = new NBiometricClient();
+            biometricClientFace.UseDeviceManager = true;
+
+            NDeviceManager dm = biometricClientFace.DeviceManager;
+            dm.DeviceTypes = NDeviceType.Camera;
+            dm.Initialize();
+        }
+
+        public void ReinicializarFormulario()
+        {
+            try
+            {
+                // limpiar campos de login por seguridad
+                txtUsuario.Clear();
+                txtContrasenia.Clear();
+                funciones.MostrarHuellaDesdeBytes(null, nFVDedoA);
+                funciones.MostrarHuellaDesdeBytes(null, nFVDedoB);
+
+                // recrear clientes y reinicializar managers
+                RecreateFingerClient();
+                RecreateFaceClient();
+
+                // limpiar y recargar escáneres de huellas en el ComboBox
+                cmbEscaners.Items.Clear();
+
+                if (biometricClientFinger != null && biometricClientFinger.DeviceManager != null)
+                {
+                    funciones.ListarEscanersHuellas(
+                        cmbEscaners,
+                        true,
+                        Settings.Default.FILTRAR_ESCANER_HUELLAS,
+                        PARAMETRIZACION.TipoEscanerHuellas.Unidactilar,
+                        biometricClientFinger.DeviceManager);
+                }
+
+                // foco a ingresar usuario
+                txtUsuario.Focus();
+            }
+            catch (Exception ex)
+            {
+                funciones.CajaMensaje("Error al reinicializar formulario: " + ex.Message);
+            }
+        }       
 
         public DataSet GetSedeById(int id)
         {
@@ -533,11 +694,8 @@ namespace ENROLLMENT_V3
             try
             {
                 SedeRequest sedeRequest = new SedeRequest();
-                sedeRequest.id = id;
-
-                // DEBUG: Mostrar datos del request
-                string url = Settings.Default.API_REST_MIROS + Settings.Default.API_SEDE_BY_ID + "?id=" + sedeRequest.id;
-                funciones.CajaMensaje($"DEBUG GetSedeById:\nSEDE_ID: {id}\nURL: {url}\nJWT: {loginData?.JWT_TOKEN?.Substring(0, 20)}...");
+                sedeRequest.id = id;              
+                string url = Settings.Default.API_REST_MIROS + Settings.Default.API_SEDE_BY_ID + "/" + sedeRequest.id;                
 
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 request.Headers.Add("Authorization", $"Bearer {loginData.JWT_TOKEN}");
@@ -552,22 +710,22 @@ namespace ENROLLMENT_V3
                         using (StreamReader objReader = new StreamReader(strReader))
                         {
                             string body = objReader.ReadToEnd();
-                            SedeResponse sedeResponse = JsonConvert.DeserializeObject<SedeResponse>(body);
+                            dynamic jsonResponse = JsonConvert.DeserializeObject(body);
 
-                            if (sedeResponse.codigo != 200)
-                                throw new Exception("Error al guardar la entrega. Código: " + sedeResponse.codigo + ", Mensaje: " + sedeResponse.mensaje);
+                            // El backend devuelve el objeto directamente en data, no un array
+                            SedeData sedeData = JsonConvert.DeserializeObject<SedeData>(jsonResponse.data.ToString());
 
-                            if (sedeResponse.data.Length == 0)
-                                throw new Exception("La colección está vacía. ");
+                            if (jsonResponse.codigo != 200)
+                                throw new Exception("Error al guardar la entrega. Código: " + jsonResponse.codigo + ", Mensaje: " + jsonResponse.mensaje);
 
-                            if (sedeResponse.data[0] == null)
-                                throw new Exception("Error de comunicación del API, intente guardar nuevamente y repórtelo al administrador");
+                            if (sedeData == null)
+                                throw new Exception("No se encontró información de la sede");
 
-                            if (!sedeResponse.data[0].estado.Equals("A"))
-                                throw new Exception("Registro inactivo, esperado (A), obtenido (" + sedeResponse.data[0].estado +") ");
+                            if (!sedeData.estado.Equals("A"))
+                                throw new Exception("Registro inactivo, esperado (A), obtenido (" + sedeData.estado +") ");
 
                             dsResultado.Tables[0].Rows[0]["RESULTADO"] = true;
-                            dsResultado.Tables[0].Rows[0]["DATOS"] = sedeResponse.data[0];
+                            dsResultado.Tables[0].Rows[0]["DATOS"] = sedeData;
                         }
                     }
                 }
@@ -691,6 +849,54 @@ namespace ENROLLMENT_V3
             {
                 dsResultado.Tables[0].Rows[0]["RESULTADO"] = false;
                 dsResultado.Tables[0].Rows[0]["MSG_ERROR"] =  ex.Message;
+            }
+
+            return dsResultado;
+        }
+
+        public DataSet ValidateBasicCredentials(string usuario, string contrasenia)
+        {
+            DataSet dsResultado = funciones.GetDsResultado();
+            try
+            {
+                LoginRequest loginRequest = new LoginRequest();
+                loginRequest.username = usuario;
+                loginRequest.password = contrasenia;
+
+                string postString = JsonConvert.SerializeObject(loginRequest);
+                byte[] data = UTF8Encoding.UTF8.GetBytes(postString);
+
+                HttpWebRequest request;
+                string url = Settings.Default.API_REST_MIROS + "/core/auth/login";
+                request = WebRequest.Create(url) as HttpWebRequest;
+                request.Timeout = 10 * 1000;
+                request.Method = "POST";
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Headers.Add("x-device-api-key", "Z3pVbU9oT1pVbW9Yb2pRZlZrWk5aV1E9");
+
+                request.ContentLength = data.Length;
+
+                Stream postStream = request.GetRequestStream();
+                postStream.Write(data, 0, data.Length);
+
+                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+                StreamReader reader = new StreamReader(response.GetResponseStream());
+                string body = reader.ReadToEnd();
+
+                dynamic basicLoginResponse = JsonConvert.DeserializeObject(body);
+
+                if (basicLoginResponse.codigo != 200)
+                    throw new Exception("Usuario o contraseña incorrectos");
+
+                dsResultado.Tables[0].Rows[0]["DATOS"] = basicLoginResponse;
+                dsResultado.Tables[0].Rows[0]["RESULTADO"] = true;
+
+            }
+            catch (Exception ex)
+            {
+                dsResultado.Tables[0].Rows[0]["RESULTADO"] = false;
+                dsResultado.Tables[0].Rows[0]["MSG_ERROR"] = ex.Message;
             }
 
             return dsResultado;
@@ -959,6 +1165,29 @@ namespace ENROLLMENT_V3
                 this.Show();
                 funciones.CajaMensaje("Error: " + ex.Message);
             }
+        }
+
+        private void pbRegistrarEquipo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Hide();
+                FrmRegistrarEquipo frmRegistrarEquipo = new FrmRegistrarEquipo(loginData);
+                DialogResult result = frmRegistrarEquipo.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                }
+                else
+                {
+                    this.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Show();
+                funciones.CajaMensaje("Error: " + ex.Message);
+            }
+
         }
     }
 }
